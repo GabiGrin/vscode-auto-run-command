@@ -1,65 +1,73 @@
 # auto-run-command README
 
-This is the README for your extension "auto-run-command". After writing up a brief description, we recommend including the following sections.
+Run a command when VSCode starts, based on some conditions.
+Built to run [Wallaby.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.wallaby-vscode) automatically on projects that have a config.
+I decided to make it a bit more generic to play around with the API (and because developing an extension there is super smooth! Awesome work VSCode guys!)
 
-## Features
+## Usage
+The way this extension works is by reading a list of rules from your settings.
+Each rule is evaluated and if the rule's condition is met, a command is ran.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+A rule consists of a condition, a command and an optional message. The message will be shown if the condition is met.
 
-For example if there is an image subfolder under your extension project workspace:
+You need to open your settings: File -> Preferences -> User Settings, and add a rule. Check below for examples.
 
-\!\[feature X\]\(images/feature-x.png\)
+ProTip™: Both `command` and `condition` accept arrays. If you pass in multiple conditions, all of them have to be met. If multiple commands are passed, all of the will run.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Note: commands run after a 5s delay to ensure the command was registered. If there's a better way to do that other than delaying, let me know!
 
-## Requirements
+## Example Settings
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. Simple -Running wallaby.js when vscode opens on a folder with a config file
+`
+"auto-run-command.rules": [
+		{
+			"condition": "hasFile: wallaby.js",
+			"command": "wallaby.start",
+			"message": "Running wallaby"
+		}
+	]
+`
 
-## Extension Settings
+2. Running some command (assuming an extension exposed it) when vscode opens on a specific project containing a specific file
+`
+"auto-run-command.rules": [
+		{
+			"condition": [
+				"hasFile: special-file",
+				"isRootFolder: my-coolz-prodgekt"
+			]
+			"command": "crazy-ext.do-magic",
+			"message": "Super condition met. Running "
+		}
+	]
+`
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## If you find a real usage for this other than wallaby.js I'll be glad to know! Leave a message in the issues part.
 
-For example:
 
-This extension contributes the following settings:
+#Supported rules
+|   Condition  | Description                                                                                  | Arguments                            | Example                         |
+|:------------:|----------------------------------------------------------------------------------------------|--------------------------------------|---------------------------------|
+| always       | Is always true                                                                               | none                                 | `always`                        |
+| hasFile      | Will only be true if a file exists in the current folder                                     | file name / glob (did not test glob) | `hasFile: wallaby.js`           |
+| isLanguage   | Will run if the first file opened is using a specific language. Not sure how useful is it :) | language id                          | `isLanguage: typescript`        |
+| isRootFolder | Will run if the name of the root folder in the current workspace matches the argument        | folder name                          | `isRootFolder: my-cool-project` |
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release of `auto-run-command`
 
 -----------------------------------------------------------------------------------------------------------
 
-## Working with Markdown
+## Contributing
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+- To run locally just open the project and [debug using vscode](https://code.visualstudio.com/docs/extensions/example-hello-world).
+- To add more rules check out `src/lib/condition-parser.ts` and `src/lib/condition-checker.ts`. Make sure to add a test on the parser too
 
-* Split the editor (`Cmd+\` on OSX or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on OSX or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (OSX) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+PR's are welcomed!
 
 **Enjoy!**
