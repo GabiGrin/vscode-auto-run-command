@@ -19,7 +19,7 @@ Note: commands run after a 5s delay to ensure the command was registered. If the
 ## Example Settings
 
 1. Simple -Running wallaby.js when vscode opens on a folder with a config file
-`
+```
 "auto-run-command.rules": [
 		{
 			"condition": "hasFile: wallaby.js",
@@ -27,10 +27,10 @@ Note: commands run after a 5s delay to ensure the command was registered. If the
 			"message": "Running wallaby"
 		}
 	]
-`
+```
 
 2. Running some command (assuming an extension exposed it) when vscode opens on a specific project containing a specific file
-`
+```
 "auto-run-command.rules": [
 		{
 			"condition": [
@@ -41,7 +41,7 @@ Note: commands run after a 5s delay to ensure the command was registered. If the
 			"message": "Super condition met. Running "
 		}
 	]
-`
+```
 
 ## If you find a real usage for this other than wallaby.js I'll be glad to know! Leave a message in the issues part.
 
