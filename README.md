@@ -70,4 +70,7 @@ Initial release of `auto-run-command`
 
 PR's are welcomed!
 
+
+VSCode market icon by: [Vaadin](http://www.flaticon.com/authors/vaadin)
+
 **Enjoy!**
