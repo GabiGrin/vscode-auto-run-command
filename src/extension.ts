@@ -34,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 		setTimeout(() => {
 			vscode.commands.executeCommand(command)
 							.then(
-								() => vscode.window.showInformationMessage(`[Auto Run Command] Condition met - ${message}`),
+								() => vscode.window.setStatusBarMessage(`[Auto Run Command] Condition met - ${message}`, 3000),
 								(reason) => vscode.window.showErrorMessage(`[Auto Run Command] Condition met but command [${command}] raised an error - [${reason}] `)
 							);
 		}, safetyDelay);
