@@ -1,4 +1,5 @@
 # VSCode Extension - [auto-run-command](https://marketplace.visualstudio.com/items?itemName=gabrielgrinberg.auto-run-command#review-details)
+[![Build Status](https://travis-ci.org/GabiGrin/vscode-auto-run-command.svg?branch=master)](https://travis-ci.org/GabiGrin/vscode-auto-run-command)
 
 Run a command when VSCode starts, based on some conditions.
 Built to run [Wallaby.js](https://marketplace.visualstudio.com/items?itemName=WallabyJs.wallaby-vscode) automatically on projects that have a config.
