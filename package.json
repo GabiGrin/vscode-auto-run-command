@@ -2,64 +2,72 @@
     "name": "auto-run-command",
     "displayName": "Auto Run Command",
     "description": "Run a vscode command on project init. Made to run wallaby.js automatically when a project is opened",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "publisher": "gabrielgrinberg",
     "engines": {
         "vscode": "^1.5.0"
     },
-	 "icon": "icon.svg",
+    "icon": "icon.svg",
     "categories": [
         "Other"
     ],
     "activationEvents": [
         "*"
     ],
-	"homepage": "https://github.com/GabiGrin/vscode-auto-run-command",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/GabiGrin/vscode-auto-run-command.git"
-	},
+    "homepage": "https://github.com/GabiGrin/vscode-auto-run-command",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/GabiGrin/vscode-auto-run-command.git"
+    },
     "main": "./out/src/extension",
     "contributes": {
-        "commands": [{
-            "command": "auto-run-command.placeholder-command",
-            "title": "Auto Run Command Placeholder"
-        }],
+        "commands": [
+            {
+                "command": "auto-run-command.placeholder-command",
+                "title": "Auto Run Command Placeholder"
+            }
+        ],
         "configuration": {
-			"title": "Auto Run Command config",
-			"description": "",
-			"type": "object",
-			"properties": {
-				"auto-run-command.rules": {
-					"type": "array",
-					"title": "Auto Run Command Rules",
-					"default": [
-						{
-							"condition": "always",
-							"command": "auto-run-command.placeholder-command",
-							"message": "Running a dummy command"
-						}
-					],
-					"items": {
-							"type": "object",
-							"properties": {
-								"command": {
-									"type": ["string", "array"],
-									"description": "Command to run when the rule is matched"
-								},
-								"condition": {
-									"type": ["string", "array"],
-									"description": "Condition to match against. See documentation for possible condition"
-								},
-								"message": {
-									"type": "string",
-									"description": "A descriptive message to show when the condition is met. Defaults to the robotic condition text"
-								}
-							}
-					}
-				}
-			}
-      }
+            "title": "Auto Run Command config",
+            "description": "",
+            "type": "object",
+            "properties": {
+                "auto-run-command.rules": {
+                    "type": "array",
+                    "title": "Auto Run Command Rules",
+                    "default": [
+                        {
+                            "condition": "always",
+                            "command": "auto-run-command.placeholder-command",
+                            "message": "Running a dummy command"
+                        }
+                    ],
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "command": {
+                                "type": [
+                                    "string",
+                                    "array"
+                                ],
+                                "description": "Command to run when the rule is matched"
+                            },
+                            "condition": {
+                                "type": [
+                                    "string",
+                                    "array"
+                                ],
+                                "description": "Condition to match against. See documentation for possible condition"
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "A descriptive message to show when the condition is met. Defaults to the robotic condition text"
+                            }
+                        }
+                    }
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",

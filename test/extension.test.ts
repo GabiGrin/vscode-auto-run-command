@@ -27,8 +27,8 @@ suite('rule parsing', () => {
 		assert.deepEqual(parseCondition(rule), expectedResult);
 	});
 
-	test('should throw for isFolder', () => {
-		const rule = 'isRootFolder: vscode-autorun-command'; //TODO - change this test once this rule is implemented!
+	test('should work for isRootFolder', () => {
+		const rule = 'isRootFolder: vscode-autorun-command';
 		const expectedResult = {type: ParsedConditionType.isRootFolder, args: ['vscode-autorun-command']};
 		assert.deepEqual(parseCondition(rule), expectedResult);
 	});
