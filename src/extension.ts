@@ -5,9 +5,19 @@ import * as vscode from 'vscode';
 
 const nameSpace = 'auto-run-command';
 
+interface Command {
+	command: string
+	args: string[]
+}
+
+function isCommand(arg: any): arg is Command {
+    return arg != null && arg.args !== undefined;
+}
+
 interface Rule {
+	cmd: Command | Command[] | null;
 	command: string | string[];
-	condition: string | string [];
+	condition: string | string []
 	message?: string;
 }
 
@@ -27,24 +37,33 @@ export function activate(context: vscode.ExtensionContext) {
 	const rules = nsConfig.get('rules') as Rule[];
 
 
-	const runCommandDelayed = (command: string, message: string) => {
+	const runCommandDelayed = (cmd: Command, message: string) => {
 
 		const safetyDelay = 5000; //to ensure other extensions got their moves on
 
 		setTimeout(() => {
-			vscode.commands.executeCommand(command)
+			vscode.commands.executeCommand(cmd.command, ...cmd.args)
 							.then(
 								() => vscode.window.setStatusBarMessage(`[Auto Run Command] Condition met - ${message}`, 3000),
-								(reason) => vscode.window.showErrorMessage(`[Auto Run Command] Condition met but command [${command}] raised an error - [${reason}] `)
+								(reason) => vscode.window.showErrorMessage(`[Auto Run Command] Condition met but command [${cmd.command}] raised an error - [${reason}] `)
 							);
 		}, safetyDelay);
 	};
 
 	rules.forEach(rule => {
-		console.log(rule);
 		const conditions: string[] = typeof rule.condition === 'string' ? [rule.condition] : rule.condition || [];
-		const commands: string[] = typeof rule.command === 'string' ? [rule.command] : rule.command || [];
 		const message = rule.message || conditions.join(' and ');
+
+		let commands: Command[] = isCommand(rule.cmd) ? [rule.cmd]: rule.cmd || []
+		
+		commands = commands.concat(
+			(typeof rule.command === 'string' ? [rule.command] : rule.command || []).map(e => {
+				return {
+					command: e,
+					args: []
+				}
+			})
+		)
 
 		try {
 			const parsed = conditions.map(parseCondition);

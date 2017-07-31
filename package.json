@@ -62,6 +62,23 @@
                             "message": {
                                 "type": "string",
                                 "description": "A descriptive message to show when the condition is met. Defaults to the robotic condition text"
+                            },
+                            "cmd": {
+                                "type": ["object", null],
+                                "properties": {
+                                    "command": {
+                                        "type": [
+                                            "string",
+                                            "array"
+                                        ],
+                                        "description": "Command to run when the rule is matched"
+                                        },
+                                    "args": {
+                                        "type": [
+                                            "array"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
