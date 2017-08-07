@@ -32,6 +32,9 @@ export function activate(context: vscode.ExtensionContext) {
 		const safetyDelay = 5000; //to ensure other extensions got their moves on
 		const commands = command.split(" "); // commands may contain specified to separate arguments
 
+		if(commands.length < 1) {
+			return;
+		}
 		const [cmd, ...args] = commands;
 
 		setTimeout(() => {
