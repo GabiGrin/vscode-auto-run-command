@@ -47,7 +47,7 @@ Note: commands run after a 5s delay to ensure the command was registered. If the
 ## If you find a real usage for this other than wallaby.js I'll be glad to know! Leave a message in the issues part.
 
 
-#Supported rules
+# Supported rules
 |   Condition  | Description                                                                                  | Arguments                            | Example                         |
 |:------------:|----------------------------------------------------------------------------------------------|--------------------------------------|---------------------------------|
 | always       | Is always true                                                                               | none                                 | `always`                        |
