@@ -13,14 +13,14 @@ A rule consists of a condition, a command and an optional message. The message w
 
 You need to open your settings: File -> Preferences -> User Settings, and add a rule. Check below for examples.
 
-ProTip™: Both `command` and `condition` accept arrays. If you pass in multiple conditions, all of them have to be met. If multiple commands are passed, all of the will run.
+ProTip™: Both `command` and `condition` accept arrays. If you pass in multiple conditions, all of them have to be met. If multiple commands are passed, all of them will run.
 
 Note: commands run after a 5s delay to ensure the command was registered. If there's a better way to do that other than delaying, let me know!
 
 ## Example Settings
 
 1. Simple -Running wallaby.js when vscode opens on a folder with a config file
-```
+```javascript
 "auto-run-command.rules": [
 		{
 			"condition": "hasFile: wallaby.js",
@@ -31,7 +31,7 @@ Note: commands run after a 5s delay to ensure the command was registered. If the
 ```
 
 2. Running some command (assuming an extension exposed it) when vscode opens on a specific project containing a specific file
-```
+```javascript
 "auto-run-command.rules": [
 		{
 			"condition": [
