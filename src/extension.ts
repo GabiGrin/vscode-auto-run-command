@@ -18,7 +18,7 @@ interface Config {
 export function activate(context: vscode.ExtensionContext) {
 
 	let disposable = vscode.commands.registerCommand(`${nameSpace}.placeholder-command`, () => {
-		vscode.window.showInformationMessage('Auto run command is working. Checkout the README to make it do something useful!');
+		vscode.window.showInformationMessage('Auto run command is working. Check out the README to make it do something useful!');
 	});
 
 	context.subscriptions.push(disposable);
