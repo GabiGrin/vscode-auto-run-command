@@ -57,10 +57,8 @@ Note: commands run after a 5s delay to ensure the command was registered. If the
 
 
 ## Release Notes
+[here](CHANGELOG.md)
 
-### 1.0.0
-
-Initial release of `auto-run-command`
 
 -----------------------------------------------------------------------------------------------------------
 

@@ -11,3 +11,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 1.1.0
 - Condition activation message now switched to the statur bar. Thanks @kwonoj!
+
+### 1.2.0
+- [Adds ability to pass arguments to commands](https://github.com/GabiGrin/vscode-auto-run-command/pull/11)
+- [Prevents exception when file does not exists](https://github.com/GabiGrin/vscode-auto-run-command/pull/19)
+- Fixes typos in code and readme
+Thanks @breathe, @kwonoj and @JoshuaKGoldberg!
