@@ -30,9 +30,15 @@ export function activate(context: vscode.ExtensionContext) {
 	const runCommandDelayed = (command: string, message: string) => {
 
 		const safetyDelay = 5000; //to ensure other extensions got their moves on
+		const commands = command.split(" "); // commands may contain specified to separate arguments
+
+		if(commands.length < 1) {
+			return;
+		}
+		const [cmd, ...args] = commands;
 
 		setTimeout(() => {
-			vscode.commands.executeCommand(command)
+			vscode.commands.executeCommand(cmd, ...args)
 							.then(
 								() => vscode.window.setStatusBarMessage(`[Auto Run Command] Condition met - ${message}`, 3000),
 								(reason) => vscode.window.showErrorMessage(`[Auto Run Command] Condition met but command [${command}] raised an error - [${reason}] `)
