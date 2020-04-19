@@ -2,7 +2,8 @@ export enum ParsedConditionType {
 	always = 1,
 	hasFile = 2,
 	isLanguage = 3,
-	isRootFolder = 4
+	isRootFolder = 4,
+	isRunningInContainer = 5
 }
 
 export type ParsedCondition = {type: ParsedConditionType, args: string[]};
@@ -28,6 +29,10 @@ export const parseCondition = (rule: string): ParsedCondition =>  {
 		{
 			pattern: /isRootFolder:\s*([^\s]+)\s*/,
 			type: ParsedConditionType.isRootFolder
+		},
+		{
+			pattern: /isRunningInContainer$/,
+			type: ParsedConditionType.isRunningInContainer
 		}
 	];
 

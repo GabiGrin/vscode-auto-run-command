@@ -18,6 +18,9 @@ export const checkCondition = async (rule: ParsedCondition): Promise<boolean> =>
 			const folderMatches = rootPath.match(/([^\/]*)\/*$/);
 			const match = folderMatches && folderMatches[1];
 			return match && match === args[0];
+		case ParsedConditionType.isRunningInContainer:
+			const isDocker = require('is-docker');
+			return isDocker();
 	}
 };
 

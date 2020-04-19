@@ -20,40 +20,62 @@ Note: commands run after a 5s delay to ensure the command was registered. If the
 ## Example Settings
 
 1. Simple -Running wallaby.js when vscode opens on a folder with a config file
-```javascript
+   
+```json
 "auto-run-command.rules": [
-		{
-			"condition": "hasFile: wallaby.js",
-			"command": "wallaby.start",
-			"message": "Running wallaby"
-		}
-	]
+    {
+      "condition": "hasFile: wallaby.js",
+      "command": "wallaby.start",
+      "message": "Running wallaby"
+    }
+  ]
 ```
 
-2. Running some command (assuming an extension exposed it) when vscode opens on a specific project containing a specific file
-```javascript
+1. Running some command (assuming an extension exposed it) when vscode opens on a specific project containing a specific file
+   
+```json
 "auto-run-command.rules": [
-		{
-			"condition": [
-				"hasFile: special-file",
-				"isRootFolder: my-coolz-prodgekt"
-			]
-			"command": "crazy-ext.do-magic",
-			"message": "Super condition met. Running "
-		}
-	]
+    {
+      "condition": [
+        "hasFile: special-file",
+        "isRootFolder: my-coolz-prodgekt"
+      ],
+      "command": "crazy-ext.do-magic",
+      "message": "Super condition met. Running "
+    }
+  ]
 ```
 
 ## If you find a real usage for this other than wallaby.js I'll be glad to know! Leave a message in the issues part.
 
+## shellCommand
+
+If you set the `shellCommand` argument to true, then it will run a shell command instead of a VSCode command.
+
+Example:
+
+```json
+"auto-run-command.rules": [
+  {
+    "condition": [
+      "hasFile: special-file",
+      "isRootFolder: my-coolz-prodgekt"
+    ],
+    "command": "export COOL_ENV_VARIABLE=cool",
+    "message": "Super condition met. Running ",
+    "shellCommand": true
+  }
+]
+```
 
 # Supported rules
-|   Condition  | Description                                                                                  | Arguments                            | Example                         |
-|:------------:|----------------------------------------------------------------------------------------------|--------------------------------------|---------------------------------|
-| always       | Is always true                                                                               | none                                 | `always`                        |
-| hasFile      | Will only be true if a file exists in the current folder                                     | file name / glob (did not test glob) | `hasFile: wallaby.js`           |
-| isLanguage   | Will run if the first file opened is using a specific language. Not sure how useful is it :) | language id                          | `isLanguage: typescript`        |
-| isRootFolder | Will run if the name of the root folder in the current workspace matches the argument        | folder name                          | `isRootFolder: my-cool-project` |
+|      Condition       | Description                                                                                  | Arguments                            | Example                         |
+|:--------------------:|----------------------------------------------------------------------------------------------|--------------------------------------|---------------------------------|
+|        always        | Is always true                                                                               | none                                 | `always`                        |
+|       hasFile        | Will only be true if a file exists in the current folder                                     | file name / glob (did not test glob) | `hasFile: wallaby.js`           |
+|      isLanguage      | Will run if the first file opened is using a specific language. Not sure how useful is it :) | language id                          | `isLanguage: typescript`        |
+|     isRootFolder     | Will run if the name of the root folder in the current workspace matches the argument        | folder name                          | `isRootFolder: my-cool-project` |
+| isRunningInContainer | Will run if the VSCode instance is running in a container                                    | none                                 | `isRunningInContainer`          |
 
 
 ## Release Notes
@@ -68,7 +90,6 @@ Note: commands run after a 5s delay to ensure the command was registered. If the
 - To add more rules check out `src/lib/condition-parser.ts` and `src/lib/condition-checker.ts`. Make sure to add a test on the parser too
 
 PR's are welcomed!
-
 
 VSCode market icon by: [Vaadin](http://www.flaticon.com/authors/vaadin)
 

@@ -1,5 +1,6 @@
 import { checkCondition } from './lib/condition-checker';
 import { parseCondition } from './lib/condition-parser';
+import { runShellCommand } from './lib/run-shell-command';
 
 import * as vscode from 'vscode';
 
@@ -8,6 +9,7 @@ const nameSpace = 'auto-run-command';
 interface Rule {
 	command: string | string[];
 	condition: string | string [];
+	shellCommand?: boolean;
 	message?: string;
 }
 
@@ -27,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 	const rules = nsConfig.get('rules') as Rule[];
 
 
-	const runCommandDelayed = (command: string, message: string) => {
+	const runCommandDelayed = (command: string, message: string, shellCommand: boolean) => {
 
 		const safetyDelay = 5000; //to ensure other extensions got their moves on
 		const commands = command.split(" "); // commands may contain specified to separate arguments
@@ -37,18 +39,32 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 		const [cmd, ...args] = commands;
 
+
+
 		setTimeout(() => {
-			vscode.commands.executeCommand(cmd, ...args)
-							.then(
-								() => vscode.window.setStatusBarMessage(`[Auto Run Command] Condition met - ${message}`, 3000),
-								(reason) => vscode.window.showErrorMessage(`[Auto Run Command] Condition met but command [${command}] raised an error - [${reason}] `)
-							);
+			if (shellCommand)
+			{
+				runShellCommand(command)
+								.then(
+									() => vscode.window.setStatusBarMessage(`[Auto Run Command] Condition met - ${message}`, 3000),
+									(reason) => vscode.window.showErrorMessage(`[Auto Run Command] Condition met but command [${command}] raised an error - [${reason}] `)
+								);
+			}
+			else
+			{
+				vscode.commands.executeCommand(cmd, ...args)
+								.then(
+									() => vscode.window.setStatusBarMessage(`[Auto Run Command] Condition met - ${message}`, 3000),
+									(reason) => vscode.window.showErrorMessage(`[Auto Run Command] Condition met but command [${command}] raised an error - [${reason}] `)
+					    		);
+			}
 		}, safetyDelay);
 	};
 
 	rules.forEach(rule => {
 		console.log(rule);
 		const conditions: string[] = typeof rule.condition === 'string' ? [rule.condition] : rule.condition || [];
+		const shellCommand: boolean = rule.shellCommand;
 		const commands: string[] = typeof rule.command === 'string' ? [rule.command] : rule.command || [];
 		const message = rule.message || conditions.join(' and ');
 
@@ -58,7 +74,7 @@ export function activate(context: vscode.ExtensionContext) {
 			return Promise.all(checkPromises)
 				.then(values => {
 					if (values.every(id => !!id)) {
-						commands.forEach(cmd => runCommandDelayed(cmd, message));
+						commands.forEach(cmd => runCommandDelayed(cmd, message, shellCommand));
 				}
 			});
 		} catch (e) {
