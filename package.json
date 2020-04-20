@@ -2,7 +2,7 @@
     "name": "auto-run-command",
     "displayName": "Auto Run Command",
     "description": "Run a vscode command on project init. Made to run wallaby.js automatically when a project is opened",
-    "version": "1.5.0",
+    "version": "1.6.0",
     "publisher": "gabrielgrinberg",
     "engines": {
         "vscode": "^1.5.0"
@@ -81,5 +81,8 @@
         "mocha": "^2.3.3",
         "@types/node": "^6.0.40",
         "@types/mocha": "^2.2.32"
+    },
+    "dependencies": {
+        "is-docker": "^2.0.0"
     }
 }
