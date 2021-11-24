@@ -3,7 +3,8 @@ export enum ParsedConditionType {
 	hasFile = 2,
 	isLanguage = 3,
 	isRootFolder = 4,
-	isRunningInContainer = 5
+	isRunningInContainer = 5,
+	isExtensionEnabled = 6,
 }
 
 export type ParsedCondition = {type: ParsedConditionType, args: string[]};
@@ -33,7 +34,11 @@ export const parseCondition = (rule: string): ParsedCondition =>  {
 		{
 			pattern: /isRunningInContainer$/,
 			type: ParsedConditionType.isRunningInContainer
-		}
+		},
+		{
+			pattern: /isExtensionEnabled:\s*([^\s]+)\s*/,
+			type: ParsedConditionType.isExtensionEnabled
+		},
 	];
 
 	const matchedRules = ruleMatchers.filter(matcher => rule.match(matcher.pattern));

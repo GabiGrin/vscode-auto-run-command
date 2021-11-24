@@ -40,6 +40,12 @@ suite('rule parsing', () => {
 		assert.deepEqual(parseCondition(rule), expectedResult);
 	});
 
+	test('should work for isExtensionEnabled', () => {
+		const rule = 'isExtensionEnabled: vscode-autorun-command';
+		const expectedResult = {type: ParsedConditionType.isExtensionEnabled, args: ['vscode-autorun-command']};
+		assert.deepEqual(parseCondition(rule), expectedResult);
+	});
+
 	test('should throw for unknown', () => {
 		const rule = 'hasFlyingSaucerOfColor: Red'; //TODO - change this test once this rule is implemented!
 		assert.throws(() => parseCondition(rule));
@@ -59,6 +65,12 @@ suite('rule checking', () => {
 		const isDocker = require('is-docker')
 		const inCont = isDocker();
 		assert.equal(checked, inCont);
+	});
+
+	test('should be true for isExtensionEnabled with this extension', async  () => {
+		const parsed = {type: ParsedConditionType.isExtensionEnabled, args: ['gabrielgrinberg.auto-run-command']};
+		const checked = await checkCondition(parsed);
+		assert.equal(checked, true);
 	});
 
 });
