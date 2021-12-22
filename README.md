@@ -46,7 +46,28 @@ Note: commands run after a 5s delay to ensure the command was registered. If the
   ]
 ```
 
+1. You can also run a command with arguments by using spaces to separate the arguments:
+
+```json
+      "command": "crazy-ext.do-magic arg1 arg2 arg3",
+```
+
+
 ## If you find a real usage for this other than wallaby.js I'll be glad to know! Leave a message in the issues part.
+
+## Run Task
+
+1. Run a VS Code Task named task_name (note: task name cannot have a space in it)
+   
+```json
+"auto-run-command.rules": [
+    {
+      "condition": "always",
+      "command": "workbench.action.tasks.runTask task_name",
+      "message": "Running my awesome task"
+    }
+  ]
+```
 
 ## shellCommand
 
