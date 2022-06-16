@@ -21,6 +21,9 @@ export const checkCondition = async (rule: ParsedCondition): Promise<boolean> =>
 		case ParsedConditionType.isRunningInContainer:
 			const isDocker = require('is-docker');
 			return isDocker();
+		case ParsedConditionType.isExtensionEnabled:
+			const extension = vscode.extensions.getExtension(args[0]);
+			return extension !== undefined;
 	}
 };
 
